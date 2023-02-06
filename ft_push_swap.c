@@ -1,14 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "ft_push_swap.h"
 
-typedef struct node {
-	char		*data;
-	int			nmbr;
-	struct node	*next;
-} Node;
-
-/* int	ft_strlen(char	*str)
+int	ft_strlen(char	*str)
 {
 	int	i;
 
@@ -16,14 +8,28 @@ typedef struct node {
 	while (str[i])
 		i++;
 	return (i);
-} */
+}
 
-void	ft_print_list(Node *head) 
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] != s2[i])
+			break;
+		i++;
+	}
+	return (s1[i] - s2[i]);
+}
+
+void	ft_print_list(Node *head)
 {
 	Node	*current;
 	
 	current = head;
-	if (strcmp(current->data, "The validation with Atoi says Fuck You!") == 0)
+	if (ft_strcmp(current->data, "The validation with Atoi says Fuck You!") == 0)
 	{	
 		printf("%s \n", current->data);
 		return ;
@@ -51,26 +57,6 @@ int	ft_count_nodes(Node *head)
 	return (i);
 }
 
-void	ft_swap_sa(Node *head)
-{
-	char	*second;
-	char	*temp;
-	int		one;
-	int		two;
-
-	if (ft_count_nodes(head) < 2)
-		return ;
-	temp = head->data;
-	one = head->nmbr;
-	second = head->next->data;
-	two = head->next->nmbr;
-	head->data = second;
-	head->nmbr = two;
-	head->next->data = temp;
-	head->next->nmbr = one;
-	return ; 
-}
-
 char	*ft_atoi_for_validation(char	*str)
 {
 	int	n;
@@ -78,6 +64,8 @@ char	*ft_atoi_for_validation(char	*str)
 	int	i;
 
 	i = -1;
+	if (str[0] == '-')
+		i++;
 	while (str[++i])
 	{
 		if (str[i] >= '0' && str[i] <= '9')
@@ -96,14 +84,21 @@ int	ft_atoi_adapted(char *str)
 	int	i;
 	int	n;
 	int	nb;
+	int	sign;
 
+	sign = 1;
 	i = -1;
+	if (str[0] == '-')
+	{	
+		sign = -1;
+		i++;
+	}
 	while (str[++i])
 	{
 		n = str[i] - 48;
 		nb = nb * 10 + n;
 	}
-	return(nb);
+	return(nb * sign);
 }
 
 Node	*ft_validate_nmbr(Node *head)
@@ -118,7 +113,7 @@ Node	*ft_validate_nmbr(Node *head)
 	while (current)
 	{
 		current->data = ft_atoi_for_validation(current->data);
-		if (strcmp(current->data, "Atoi says Fuck you") == 0)
+		if (ft_strcmp(current->data, "Atoi says Fuck you") == 0)
 			return (error);
 		current = current->next;
 	}
@@ -151,13 +146,7 @@ Node	*ft_map_argvs(int argc, char *argv[])
 	return (head);
 }
 
-/* int	*ft_store_argvs_as_array(Node *)
-{
-	int	i;
-
-	i = -1;
-} */
-Node	*ft_sort_shit(Node *head)
+void	ft_sort_shit(Node *head)
 {
 	Node	*current;
 	
@@ -172,7 +161,6 @@ Node	*ft_sort_shit(Node *head)
 		else
 			current = current->next;
 	}
-	return (head);
 }
 
 int	main(int argc, char *argv[])
@@ -182,7 +170,9 @@ int	main(int argc, char *argv[])
 	head = ft_map_argvs(argc, argv);
 	head = ft_validate_nmbr(head);
 	ft_swap_sa(head);
-	head = ft_sort_shit(head);
+	ft_sort_shit(head);
+	head = ft_rotate(head);
+	/* ft_rotate_test(head); */
 	ft_print_list(head);
 	return (0);
 }
