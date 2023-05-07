@@ -6,7 +6,7 @@
 /*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 14:11:23 by mromao-d          #+#    #+#             */
-/*   Updated: 2023/05/07 18:14:23 by mromao-d         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:56:34 by mromao-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,11 @@ node	*ft_validate_nmbr(node *head)
 		current->data = ft_atoi_for_validation(current->data);
 		if (ft_strcmp(current->data, "Atoi says Fuck you") == 0)
 		{	
-			free(error);
-			return (error);
+			printf("Error");
+			return (0);
 		}
 		current = current->next;
 	}
-	/* if (error)
-		free(error); */
-	/* free(current); */
-	free(error);
 	return (head);
 }
 
@@ -46,8 +42,6 @@ char    *ft_binary(int   nmbr)
     int     i;
     char    *output;
 
-	/* if (!nmbr || nmbr < 0)
-		return (0); */
     output = malloc(sizeof(char) * 33);
 	if (!output)
 		return (NULL);
@@ -58,8 +52,6 @@ char    *ft_binary(int   nmbr)
         i--;
     }
     output[32] = '\0';
-	/* if (output)
-		free(output); */
     return (output);
 }
 
@@ -140,7 +132,10 @@ int	ft_validate_argvs(int argc, char *argv[])
 	i = 1;
 	while (argv[i])
 	{
+
 		j = 0;
+		if (argv[i][0] == '-')
+			j++;
 		while (argv[i][j])
 		{
 			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
@@ -169,19 +164,13 @@ node	*ft_map_argvs(int argc, char *argv[])
 	node	*temp;
 	node	*current;
 	node	*head;
-	/* node	*error; */
 	int		i;
 
 	if (argc < 2)
 		return (0);
-	/* error = malloc(sizeof(*error));
-	if (!error)
-		return (NULL);
-	error->data = "Error"; */
 	if (ft_validate_argvs(argc, argv) != 0)
 	{
 		printf("Error\n");
-		/* free(error); */
 		return (NULL);
 	}
 	head = (node *) malloc(sizeof(*head));
@@ -222,13 +211,9 @@ int	ft_validate_if_is_sorted(node **head)
 	while (tmp->next != NULL)
 	{
 		if (tmp->nmbr > tmp->next->nmbr)
-		{
-			/* ft_free_lst(&tmp); */
 			return (0);
-		}
 		tmp = tmp->next;
 	}
-	/* ft_free_lst(&tmp); */
 	return (1);
 }
 
@@ -246,11 +231,7 @@ void	ft_push_swap(node **stackA, node **stackB)
 	tmp = *stackA;
 	pos = 31;
 	aux = 0;
-	/* if ((!*stackA) || !(*stackB))
-		return ; */
 	val = ft_validate_if_is_sorted(stackA);
-	/* if (!val)
-		return ; */
 	printf("%d\n", ft_validate_if_is_sorted(stackA));
 	while (val != 1 && pos > -1)
 	{
@@ -262,8 +243,6 @@ void	ft_push_swap(node **stackA, node **stackB)
 		{
 			((tmp->bin)[pos] == '0') ? ft_push(stackA, stackB, i, 'b') : 0;
 			i++;
-			/* ft_rotate(&tmp, 'a'); */
-			/* ft_order_argvs(*stackA); */
 			tmp = tmp->next;
 			printf("rb\n");
 		}
@@ -277,12 +256,11 @@ void	ft_push_swap(node **stackA, node **stackB)
 			printf("ra\n");
 		}
 		pos--;
-		if (/* ft_validate_if_is_sorted(stackA) &&  */ft_validate_if_is_sorted(stackA) == 1)
+		if (ft_validate_if_is_sorted(stackA) == 1)
 			break;
 		ft_order_argvs(*stackA);
 	}
 	printf("%d\n", ft_validate_if_is_sorted(stackA));
-	/* ft_free_lst(stackB); */
 	return ;
 }
 
@@ -291,27 +269,22 @@ int	main(int argc, char *argv[])
 	node	*stackA;
 	node	*stackB;
 	
+	if (argc < 2)
+		return (0);
 	stackA = NULL;
 	stackB = NULL;
 	stackA = ft_map_argvs(argc, argv);
-	/* printf("\n%s\n", stackA->data); */
 	if (ft_strcmp(stackA->data, "Error") == 0)
 		return (0);
 	ft_push_swap(&stackA, &stackB);
+	/* ft_push_swap(&stackA, &stackB); */
 	/* while (stackA)
 	{
 		printf("the argvA is %d: 		and the rank is: %d		and the bin is: %s		and the order is: %d\n", stackA->nmbr, stackA->rank, stackA->bin, stackA->order);
 		stackA = stackA->next;
-	}
-	printf("\n\n"); */
-	/* ft_add_first_node(&stackB, stackA); */
-	/* while (stackB)
-	{
-		printf("	the argvB is %d: 		and the rank is: %d		and the bin is: %s		and the order is: %d\n", stackB->nmbr, stackB->rank, stackB->bin, stackB->order);
-		stackB = stackB->next;
 	} */
+	/* printf("\n\n"); */
 	ft_free_lst(&stackA);
-	ft_free_lst(&stackB);
-	/* ft_push_swap(&stackA, &stackB); */
+	/* ft_free_lst(&stackB); */
 	return (0);
 }

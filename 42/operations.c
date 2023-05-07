@@ -6,7 +6,7 @@
 /*   By: mromao-d <mromao-d@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/07 15:53:29 by mromao-d          #+#    #+#             */
-/*   Updated: 2023/05/07 18:04:10 by mromao-d         ###   ########.fr       */
+/*   Updated: 2023/05/07 18:47:18 by mromao-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ node	*ft_copy_node(node *head)
 
 	output = malloc(sizeof(*output));
 	if (!output)
-	{	
-		/* free(output); */
 		return (NULL);
-	}
 	output->bin = head->bin;
 	output->data = head->data;
 	output->nmbr = head->nmbr;
@@ -49,17 +46,20 @@ node	*ft_copy_node_adpted(node *head)
 
 void	ft_free_lst(node **head)
 {
-	node	*curr;
 	node	*nxt;
 
-	curr = *head;
-	while (curr)
+	if (!head)
+		return ;
+	while (*head)
 	{
-		nxt = curr->next;
-		/* free(curr->bin);
-		free(curr->data); */
-		free(curr);
-		curr = nxt;
+		nxt = (*head)->next;
+		if ((*head)->bin)
+			free((*head)->bin);
+		/* if ((*head)->data)
+			free((*head)->data); */
+		/* free((*head)->); */
+		free(*head);
+		(*head) = nxt;
 	}
 	return ;
 }
@@ -96,7 +96,10 @@ void	ft_delete_midle_node(node	**head, int order)
 	else
 		(*head) = curr->next;
 	/* if (curr)
-		free (curr); */
+	{
+		free (curr);
+	} */
+	free (curr);
 	return ;
 }
 
@@ -168,9 +171,10 @@ void	ft_push_simple(node **from, node **to, char	stack)
 	if (!*to)
 		*to = ft_copy_node(*from);
 	else
-		ft_add_first_node(to, ft_copy_node(tmp));
-	/* if (tmp) */
-		/* free(tmp); */
+		/* ft_add_first_node(to, ft_copy_node(tmp)); */
+		ft_add_first_node(to, tmp);
+	if (tmp)
+		free(tmp);
 	*from = (*from)->next;
 	/* ft_add_move(stackA);
 	ft_add_move(stackB); */
