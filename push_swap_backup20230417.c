@@ -41,7 +41,7 @@ int	ft_atoi_adapted(char *str)
 {
 	int	i;
 	int	n;
-	long	nb;
+	int	nb;
 	int	sign;
 
 	sign = 1;
@@ -98,8 +98,6 @@ node	*ft_validate_nmbr(node *head)
 			return (error);
 		current = current->next;
 	}
-	if (error)
-		free(error);
 	return (head);
 }
 
@@ -151,6 +149,11 @@ void	ft_print_list(node *head)
 		printf("Nothing to print on print_list");
 		return ;
 	}
+	if (ft_strcmp(current->data, "The validation with Atoi says Fuck You!") == 0)
+	{	
+		printf("%s \n", current->data);
+		return ;
+	}
 	while (current)
 	{
 		printf("the number is: %i \n", current->nmbr);
@@ -188,58 +191,15 @@ void	ft_order_argvs(node *head)
 	return ;
 }
 
-int	ft_validate_argvs(int argc, char *argv[])
-{
-	int	i;
-	int	j;
-
-	if (argc < 2)
-		return (1);
-	i = 1;
-	while (argv[i])
-	{
-		j = 0;
-		while (argv[i][j])
-		{
-			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
-				return (2);
-			/* printf("the number is:	%c\n", argv[i][j]); */
-			j++;
-		}
-		i++;
-	}
-	i = 1;
-	while (argv[i])
-	{
-		j = i + 1;
-		while (argv[j])
-		{
-			if (ft_strcmp(argv[i], argv[j]) == 0)
-				return (3);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
 node	*ft_map_argvs(int argc, char *argv[])
 {
 	node	*temp;
 	node	*current;
 	node	*head;
-	node	*error;
 	int		i;
 
 	if (argc < 2)
 		return (0);
-	if (ft_validate_argvs(argc, argv) != 0)
-	{
-		error = malloc(sizeof(node));
-		error->data = "Error";
-		printf("\n%s\n", error->data);
-		return (error);
-	}
 	head = malloc(sizeof(node));
 	head->data = argv[1];
 	head->nmbr = ft_atoi_adapted(argv[1]);
@@ -314,58 +274,31 @@ node	*ft_copy_node_adpted(node *head)
 	return (output);
 }
 
-void	ft_free_lst(node **head)
-{
-	node	*tmp;
-
-	while (*head)
-	{
-		tmp = *head;
-		*head = (*head)->next;
-		free(tmp);
-	}
-	return ;
-}
-
 void	ft_delete_midle_node(node	**head, int order)
 {
 	int	i;
 	node	*prev;
 	node	*curr;
 
-	if (*head == NULL)
-		return ;
 	i = 0;
 	prev = NULL;
 	curr = *head;
-	/* if (!curr)
-		return ; */
+	if (!curr)
+		return ;
 	while (curr && i < order)
 	{
 		prev = curr;
 		curr = curr->next;
 		i++;
 	}
-	/* ft_free_lst(&curr); */
-	if (curr == NULL)
-		return ;
-	if (prev != NULL)
-		prev->next = curr->next;
-	/* if (prev && curr)
+	if (prev && curr)
 		prev->next = curr->next;
 	else if (prev)
-		prev->next = NULL; */
+		prev->next = NULL;
 	else
-		(*head) = curr->next;
-	/* if (curr->bin)
-		free(curr->bin); */
-	/* if (curr->data)
-		free(curr->data); */
-	/* if (curr->next)
-		free(curr->next); */
-	/* if (*head)
-		free(*head); */
-	free (curr);
+		(*head) = (*head)->next;
+	if (curr)
+		free(curr);
 	return ;
 }
 
@@ -382,7 +315,7 @@ void	ft_add_first_node(node **head, node *to_add)
 		*head = tmp;
 	/* while (tmp)
 		tmp = tmp->next; */
-	free(to_add);
+	/* free(to_add); */
 	/* ft_delete_midle_node(head, 0); */
 	return ;
 }
@@ -418,31 +351,29 @@ void	ft_push_simple(node **from, node **to)
 		*to = ft_copy_node(*from);
 	else
 		ft_add_first_node(to, ft_copy_node(tmp));
-	if (tmp)
-		free(tmp);
 	*from = (*from)->next;
 	/* ft_add_move(stackA);
 	ft_add_move(stackB); */
 	/* tmp->next = NULL; */
+	free(tmp);
 	return ;
 }
 
 void	ft_push_swap(node **stackA, node **stackB)
 {
 	node	*tmp;
-	node	*tmpb;
+	/* node	*tmpb; */
 	int		i;
 	int		pos;
-	int		val;
+	/* int		val; */
 
 	tmp = *stackA;
+	i = 0;
 	pos = 31;
-	val = ft_validate_if_is_sorted(stackA);
-	printf("%d\n", ft_validate_if_is_sorted(stackA));
-	while (val != 1 && pos > -1)
+	/* val = ft_validate_if_is_sorted(stackA); */
+	while (/* val != 1 &&  */pos > 30)
 	{
-		i = 0;
-		tmp = *stackA;
+		/* tmp = *stackA; */
 		if (!tmp)
 			return ;
 		while (tmp)
@@ -451,21 +382,18 @@ void	ft_push_swap(node **stackA, node **stackB)
 			i++;
 			tmp = tmp->next;
 		}
-		tmpb = *stackB;
-		if (!tmpb)
+		/* tmpb = *stackB; */
+		/* if (!tmpb)
 			return ;
 		while (tmpb)
 		{
 			ft_push_simple(stackB, stackA);
 			tmpb = tmpb->next;
-		}
+		} */
 		pos--;
-		if (ft_validate_if_is_sorted(stackA) == 1)
-			break;
-		ft_order_argvs(*stackA);
+		/* val = ft_validate_if_is_sorted(stackA); */
+		/* ft_order_argvs(*stackA); */
 	}
-	printf("%d\n", ft_validate_if_is_sorted(stackA));
-	/* ft_free_lst(stackB); */
 	return ;
 }
 
@@ -473,7 +401,6 @@ int	main(int argc, char *argv[])
 {
 	node	*stackA;
 	node	*stackB;
-	/* node	**tmp = NULL; */
 	/* min_max	a; */
 
 	/* stackB = malloc(sizeof(node));
@@ -481,10 +408,6 @@ int	main(int argc, char *argv[])
 	/* stackB->data = "2312";
 	stackB->nmbr = 2312; */
 	stackA = ft_map_argvs(argc, argv);
-	/* printf("\n%s\n", stackA->data); */
-	if (ft_strcmp(stackA->data, "Error") == 0)
-		return (0);
-	/* *tmp = stackA; */
 	/* stackA = ft_validate_nmbr(stackA); */
 	/* ft_push(&stackA, &stackB);
 	ft_push(&stackA, &stackB); */
@@ -511,9 +434,6 @@ int	main(int argc, char *argv[])
 		ft_sort_6_digits(&head, &stackB, argc, *argv); */
 	
 	/* ft_sort_6_digits(&head, &stackB, argc, *argv); */
-	/* printf("\n\n");
-	ft_print_list(stackA);
-	printf("\n\n"); */
 
 	ft_push_swap(&stackA, &stackB);
 	/* ft_rotate(&head); */
@@ -522,6 +442,8 @@ int	main(int argc, char *argv[])
 	/* ft_print_list(stackA); */
 	/* printf("\n\n  %d  \n\n", head->count_m); */
 	/* ft_print_list(stackB); */
+	/* printf("\n\n");
+	ft_print_list(stackB); */
 	while (stackA)
 	{
 		printf("the argvA is %d: 		and the rank is: %d		and the bin is: %s		and the order is: %d\n", stackA->nmbr, stackA->rank, stackA->bin, stackA->order);
@@ -529,12 +451,13 @@ int	main(int argc, char *argv[])
 	}
 	printf("\n\n");
 	/* ft_add_first_node(&stackB, stackA); */
-	/* while (stackB)
+	while (stackB)
 	{
 		printf("	the argvB is %d: 		and the rank is: %d		and the bin is: %s		and the order is: %d\n", stackB->nmbr, stackB->rank, stackB->bin, stackB->order);
 		stackB = stackB->next;
-	} */
-	/* ft_free_lst(&stackA); */
+	}
 	/* ft_push_swap(&stackA, &stackB); */
 	return (0);
 }
+
+
