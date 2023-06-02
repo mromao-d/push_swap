@@ -9,8 +9,29 @@ void ft_print_list(s_node *head)
         return ;
     while (current)
     {
-        printf("%s\n", current->data);
+        printf("    data is: %s     nmbr is: %d\n", current->data, current->nmbr);
         current = current->next;
     }
     return ;
+}
+
+s_node	*ft_lst_last(s_node	*head)
+{
+	if (!head)
+		return (0);
+	while (head)
+	{
+		if (!(head->next))
+			break ;
+		head = head->next;
+	}
+	return (head);
+}
+
+void	ft_lstadd_front(s_node	**lst, s_node	*new)
+{
+	if (!lst || !new)
+		return ;
+	new->next = *lst;
+	*lst = new;
 }

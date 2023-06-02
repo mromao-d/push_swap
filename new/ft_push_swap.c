@@ -76,8 +76,10 @@ s_node *ft_map_argvs(int argc, char *argv[])
 		return (0);
 	i = 1;
 	head->data = argv[i];
-	head->bin = ft_binary(atoi(argv[i]));
+	head->nmbr = atoi(argv[i]);
+	head->bin = ft_binary(head->nmbr);
 	head->next = NULL;
+	head->order = i - 1;
 	prev = head;
 	while (++i < argc)
 	{
@@ -85,7 +87,9 @@ s_node *ft_map_argvs(int argc, char *argv[])
 		if (!current)
 			return (0);
 		current->data = argv[i];
-		current->bin = ft_binary(atoi(argv[i]));
+		current->nmbr = atoi(argv[i]);
+		current->bin = ft_binary(current->nmbr);
+		current->order = i - 1;
 		current->next = NULL;
 		prev->next = current;
 		prev = current;
@@ -129,11 +133,13 @@ int	main(int argc, char *argv[])
 	}
 	head = ft_map_argvs(argc, argv);
 	stackb = NULL;
-	ft_rotate(&head, 'a');
-	ft_push(&head, &stackb, 'b');
-	ft_push(&stackb, &head, 'a');
+	if (argc < 4)
+		ft_sort_2_digits(&head);
+	else if (argc < 5)
+		ft_sort_2_digits(&head);
+	else
+		ft_push_swap(&head, &stackb);
 	ft_print_list(head);
-	/* ft_print_list(stackb); */
-	/* ft_free_lst(&head); */
+	ft_free_lst(&head);
 	return (0);
 }
