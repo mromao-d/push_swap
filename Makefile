@@ -1,39 +1,53 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/10/27 20:31:57 by mromao-s          #+#    #+#              #
+#    Updated: 2026/03/16 20:40:45 by mromao-s         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = push_swap
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Werror -Wextra
 AR = ar rcs
 RM = rm -f
 
-FILES = ft_push_swap push_and_swaps
+SRCS = lst_operations.c \
+		movements.c \
+		push_swap.c \
+		sorts.c \
+		split.c \
+		utils.c \
+		sorts_utils.c \
+		frees.c
 
-SRCS_DIR = ./
-SRCS = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES)))
-SRCS_B = $(addprefix $(SRCS_DIR), $(addsuffix .c, $(FILES_B)))
 
-OBJS_DIR = ./
-OBJS = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES)))
-OBJS_B = $(addprefix $(OBJS_DIR), $(addsuffix .o, $(FILES_B)))
+OBJS=$(SRCS:.c=.o)
 
-
-.c.o: $(SRCS)
-	$(CC) $(CFLAGS) -c -o $@ $<
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
-run: 
-	$(CC) $(CFLAGS) $(NAME) -o oQueSaiuDaCena
-	./oQueSaiuDaCena
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
+run:
+	@$(NAME)
+	@./$(NAME)
+
 clean:
-	$(RM) $(OBJS) $(OBJS_B)
+	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
 
-re: clean all
+re: fclean all
 
 .PHONY: bonus all clean fclean re
