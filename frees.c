@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:35:49 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/16 20:39:04 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:34:46 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	ft_free_splited(char **split)
 	return ;
 }
 
-void	ft_free_lst(t_node **head)
+int	ft_free_lst(t_node **head)
 {
 	t_node	*nxt;
 
 	if (!head)
-		return ;
+		return (0);
 	while (*head)
 	{
 		nxt = (*head)->next;
@@ -44,5 +44,5 @@ void	ft_free_lst(t_node **head)
 		free(*head);
 		*head = nxt;
 	}
-	return ;
+	return (0);
 }

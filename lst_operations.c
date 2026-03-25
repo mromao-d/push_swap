@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 16:52:21 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/24 19:49:01 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:35:17 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 // 		exit(1);
 // 	}
 // 	while (curr) {
-// 		printf("data is %s		nmbr is %d		
-// 			and order is %i\n", curr->data, curr->nbr, curr->order);
+// 		printf("data is %s		nmbr is %d and order
+//  is %i\n", curr->data, curr->nbr, curr->order);
 // 		curr = curr->next;
 // 	}
 // 	return ;

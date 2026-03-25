@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 16:49:20 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/24 19:48:31 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:35:01 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,4 @@ int		ft_strlen(char *str);
 
 // frees
 void	ft_free_splited(char **split);
-void	ft_free_lst(t_node **head);
+int		ft_free_lst(t_node **head);

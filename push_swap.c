@@ -6,12 +6,11 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 16:51:23 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/25 19:26:52 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/25 20:35:42 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-// 1 6 7 986 -1
 
 t_node	*ft_populate_node(t_node *i_dont_care, char *arg)
 {
@@ -69,25 +68,33 @@ void	ft_push_swap(t_node **head, t_node	**stack_b)
 	return ;
 }
 
-int	ft_solve_two(char **argv, t_node **head, t_node	**stack_b)
+t_node	*map_argv(char *argv[], t_node **head)
 {
 	char	**out;
+	t_node	*tmp;
+	t_node	*curr;
 	int		i;
 
+	i = 1;
 	out = ft_split(argv[1]);
-	i = ft_val_nmbr_args(out, 0) + ft_val_eq_args(out, 0);
-	if (i)
-	{
-		write(1, "Error\n", 6);
-		ft_free_splited(out);
-		return (1);
-	}
 	*head = ft_map_args(out, 1);
-	*stack_b = NULL;
-	ft_push_swap(head, stack_b);
 	ft_free_splited(out);
-	ft_free_lst(head);
-	return (0);
+	while (argv[++i])
+	{
+		out = ft_split(argv[i]);
+		tmp = ft_lstlast(*head);
+		curr = ft_map_args(out, 1);
+		if (!curr)
+		{
+			ft_free_lst(head);
+			ft_free_splited(out);
+			return (NULL);
+		}
+		tmp->next = curr;
+		ft_free_splited(out);
+	}
+	ft_free_splited(out);
+	return (*head);
 }
 
 int	main(int argc, char *argv[])
@@ -96,22 +103,18 @@ int	main(int argc, char *argv[])
 	t_node	*head;
 	t_node	*stack_b;
 
+	i = 1;
 	if (argc < 2)
 	{
 		write(1, "\n", 1);
 		return (1);
 	}
-	if (argc == 2)
-		return (ft_solve_two(argv, &head, &stack_b));
-	i = ft_val_nmbr_args(argv, 1) + ft_val_eq_args(argv, 1);
-	if (i)
-	{
-		write(1, "Error\n", 6);
-		return (1);
-	}
-	head = ft_map_args(argv, 0);
+	head = map_argv(argv, &head);
+	if (!head)
+		return (ft_free_lst(&head));
 	stack_b = NULL;
 	ft_push_swap(&head, &stack_b);
+	ft_print_lst(head);
 	ft_free_lst(&head);
 	return (0);
 }
