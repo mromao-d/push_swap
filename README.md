@@ -107,9 +107,3 @@ chatgpt for readme file
 * Time complexity analysis
 
 ---
-
-## 👤 Author
-
-Your Name - 42 Student
-
----
