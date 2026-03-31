@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 16:49:20 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/25 20:35:01 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:35:54 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_node
 }	t_node;
 
 // lst_operations
-void	ft_print_lst(t_node	*head);
+// void	ft_print_lst(t_node	*head);
 t_node	*ft_lstlast(t_node *head);
 void	ft_lstadd_front(t_node **lst, t_node *new);
 int		ft_lst_len(t_node **stackA);
@@ -52,7 +52,7 @@ char	*ft_strdup(char *str);
 long	ft_atol(const char *arg);
 int		ft_is_digit(const char c);
 int		ft_val_eq_args(t_node **head);
-int	ft_val_nmbr_args(t_node **head);
+int		ft_val_nmbr_args(t_node **head);
 
 // sorts_utils
 int		ft_find_lowest(t_node *head);

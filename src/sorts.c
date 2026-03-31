@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/10 20:05:18 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/24 18:58:45 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:33:34 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_sort_4_digits(t_node **stackA, t_node **stackB)
 {
 	int	min_pos;
 
+	if (ft_validate_sorted(stackA))
+		return ;
 	min_pos = ft_find_lowest(*stackA);
 	if (min_pos < 0)
 		while (0 > min_pos++)
@@ -75,6 +77,8 @@ void	ft_sort_5_digits(t_node **stackA, t_node **stackB)
 {
 	int	min_pos;
 
+	if (ft_validate_sorted(stackA))
+		return ;
 	min_pos = ft_find_lowest(*stackA);
 	if (min_pos < 0)
 		while (0 > min_pos++)

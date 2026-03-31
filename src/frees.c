@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:35:49 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/25 20:34:46 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:54:06 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_free_lst(t_node **head, int print)
 		*head = nxt;
 	}
 	if (print)
-		write(1, "Error\n", 6);
+		write(2, "Error\n", 6);
 	return (0);
 }
 

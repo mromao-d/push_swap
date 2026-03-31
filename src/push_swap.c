@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 16:51:23 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/25 20:35:42 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:59:59 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_node	*map_argv(char *argv[], t_node **head)
 		while (!out && argv[++i])
 			out = ft_split(argv[i]);
 		if (!out)
-			break;
+			break ;
 		tmp = ft_lstlast(*head);
 		curr = ft_map_args(out, 1);
 		tmp->next = curr;
@@ -104,10 +104,7 @@ int	main(int argc, char *argv[])
 	t_node	*stack_b;
 
 	if (argc < 2)
-	{
-		write(1, "\n", 1);
 		return (1);
-	}
 	head = map_argv(argv, &head);
 	if (!head)
 		return (ft_free_lst(&head, 1));
@@ -116,7 +113,6 @@ int	main(int argc, char *argv[])
 		return (ft_free_lst(&head, 1));
 	ft_order(&head);
 	ft_push_swap(&head, &stack_b);
-	ft_print_lst(head);
 	ft_free_lst(&head, 0);
 	return (0);
 }

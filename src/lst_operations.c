@@ -6,27 +6,28 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/07 16:52:21 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/25 20:35:17 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/30 21:36:09 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_print_lst(t_node	*head)
-{
-	t_node	*curr;
+// void	ft_print_lst(t_node	*head)
+// {
+// 	t_node	*curr;
 
-	curr = head;
-	if (!curr) {
-		perror("no curr\n") ;
-		exit(1);
-	}
-	while (curr) {
-		printf("data is %s		nmbr is %d and order is %i\n", curr->data, curr->nbr, curr->order);
-		curr = curr->next;
-	}
-	return ;
-}
+// 	curr = head;
+// 	if (!curr) {
+// 		perror("no curr\n") ;
+// 		exit(1);
+// 	}
+// 	while (curr) {
+// 		printf("data is %s		nmbr is %d and order 
+// is %i\n", curr->data, curr->nbr, curr->order);
+// 		curr = curr->next;
+// 	}
+// 	return ;
+// }
 
 t_node	*ft_lstlast(t_node *head)
 {

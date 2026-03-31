@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:12:09 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/16 20:56:10 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/30 22:11:44 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ long	ft_atol(const char *arg)
 	i = 0;
 	sign = 1;
 	out = 0;
-	if (!arg)
-		return (0);
 	while (((arg[i] >= 9) && (arg[i] <= 13)) || (arg[i] == ' '))
 		i++;
 	if (arg[i] == '-')
@@ -39,8 +37,14 @@ long	ft_atol(const char *arg)
 	}
 	else if (arg[i] == '+')
 		i++;
+	if (!arg[i] || !ft_is_digit(arg[i]))
+		return (3147483647);
 	while (ft_is_digit(arg[i]))
+	{
 		out = out * 10 + arg[i++] - 48;
+		if (out > 2147483649)
+			return (3147483647);
+	}
 	return (out * sign);
 }
 
@@ -69,20 +73,24 @@ char	*ft_strdup(char *str)
 int	ft_val_nmbr_args(t_node **head)
 {
 	t_node	*curr;
-	int	j;
+	int		j;
 
 	curr = *head;
-	if (!curr || !curr->data)
-		return (2);
 	while (curr && curr->data)
 	{
 		j = 0;
+		while (curr->data[j] && (((curr->data[j] >= 9) \
+&& (curr->data[j] <= 13)) || (curr->data[j] == ' ')))
+			j++;
+		if (curr->data[j] && (curr->data[j] == '-' || curr->data[j] == '+'))
+			j++;
+		while (curr->data[j] && curr->data[j] == '0')
+			j++;
 		while (curr->data[j])
 		{
-			if ((curr->data[j] == '-') && (j == 0))
-				j++;
 			if (!ft_is_digit(curr->data[j]))
-				return (2);
+				if (!((curr->data[j] >= 9) && (curr->data[j] <= 13)))
+					return (2);
 			j++;
 		}
 		curr = curr->next;
@@ -100,7 +108,7 @@ int	ft_val_eq_args(t_node **head)
 		return (3);
 	while (curr && curr->data)
 	{
-		if (ft_strlen(curr->data) > 11 || ft_atol(curr->data) > 2147483647
+		if (ft_atol(curr->data) > 2147483647
 			|| ft_atol(curr->data) < -2147483648)
 			return (3);
 		tmp = curr->next;

@@ -6,7 +6,7 @@
 /*   By: mromao-s <mromao-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 20:27:48 by mromao-s          #+#    #+#             */
-/*   Updated: 2026/03/16 20:56:16 by mromao-s         ###   ########.fr       */
+/*   Updated: 2026/03/31 14:44:37 by mromao-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,7 @@ int	ft_validate_bin(t_node **stackA, int pos)
 	while (tmp)
 	{
 		if (!((tmp->order >> pos) & 1))
-		{
-			printf("have to push %s in order %i\n", tmp->data, tmp->order);
 			return (1);
-		}
 		tmp = tmp->next;
 	}
 	return (0);
